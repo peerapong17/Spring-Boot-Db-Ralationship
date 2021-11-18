@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 </head>
 <body>
 <div th:insert="fragment/navbar :: navbar"></div>
@@ -12,30 +13,48 @@
         <div class="col-5">
             <h3 class="fw-bold my-4">Create Player</h3>
             <div class="card px-3 py-4">
-                <form action="#" th:action="@{/players/save}" th:object="${player}" method="POST">
+                <form class="needs-validation" th:action="@{/players/save}" th:object="${player}" method="POST"
+                      novalidate>
 
-                    <label for="name" class="form-label">Name</label>
-                    <input type="text" th:field="*{name}" class="form-control mb-4 col-4" id="name">
+                    <div class="mb-3">
+                        <label for="name" class="form-label">Name</label>
+                        <input type="text" th:field="*{name}" class="form-control mb-2 col-4" id="name">
+                        <div class="invalid-feedback">
+                        </div>
+                    </div>
 
-                    <label for="country" class="form-label">Country</label>
-                    <select th:field="*{country}" class="form-select mb-4" id="country" name="country">
-                        <option disabled value="0">--Category--</option>
-                        <option th:each="country : ${countries}" th:value="${country.id}"
-                                th:text="${country.name}"></option>
-                    </select>
+                    <div class="mb-3">
+                        <label for="country" class="form-label">Country</label>
+                        <select th:field="*{country}" class="form-select mb-2" id="country" name="country">
+                            <option selected value="Country">--Country--</option>
+                            <option th:each="country : ${countries}" th:value="${country.id}"
+                                    th:text="${country.name}"></option>
+                        </select>
+                        <div class="invalid-feedback">
+                        </div>
+                    </div>
 
-                    <label for="club" class="form-label">Club</label>
-                    <select th:field="*{club}" class="form-select mb-4" id="club" name="club">
-                        <option disabled value="0">--Category--</option>
-                        <option th:each="club : ${clubs}" th:value="${club.id}"
-                                th:text="${club.name}"></option>
-                    </select>
+                    <div class="mb-3">
+                        <label for="club" class="form-label">Club</label>
+                        <select th:field="*{club}" class="form-select mb-2" id="club" name="club">
+                            <option selected value="Club">--Club--</option>
+                            <option th:each="club : ${clubs}" th:value="${club.id}"
+                                    th:text="${club.name}"></option>
+                        </select>
+                        <div class="invalid-feedback">
+                        </div>
+                    </div>
 
                     <label class="form-label">Positions</label>
                     <div class="clearfix"></div>
-                    <div class="form-check form-check-inline" th:each="position : ${positions}">
-                        <input class="form-check-input" th:field="*{positions}" type="checkbox" th:id="${position.id}" th:value="${position.id}">
+                    <div class="form-check form-check-inline" id="positionContainer" th:each="position : ${positions}">
+                        <input class="form-check-input positions" th:field="*{positions}" type="checkbox"
+                               th:id="${position.id}"
+                               th:value="${position.id}">
                         <label class="form-check-label" th:for="${position.id}" th:text="${position.name}"></label>
+
+                    </div>
+                    <div class="invalid-feedback invalid-form-checkbox">
                     </div>
                     <div class="clearfix"></div>
                     <div class="float-end mt-3">
@@ -47,6 +66,9 @@
         </div>
     </div>
 </div>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+        crossorigin="anonymous"></script>
+<script src="/scripts/playerValidation.js"></script>
 </body>
 </html>
